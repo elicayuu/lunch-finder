@@ -40,7 +40,6 @@ export const OpenStreetMap:FC<OpenStreetMapProps> = ({
 
     if (marker) {
       const lastMarker = L.marker(marker).addTo(mapRef.current)
-      mapRef.current.panTo(marker)
 
       return () => {
         lastMarker.remove()
