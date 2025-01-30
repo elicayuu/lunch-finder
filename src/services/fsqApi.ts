@@ -22,7 +22,10 @@ type Place = {
       latitude: number,
       longitude: number,
     }
-  }
+  };
+  location: {
+    formatted_address: string;
+  };
 }
 
 export interface searchPlacesParams {
@@ -37,8 +40,8 @@ export const searchPlaces = async (params: searchPlacesParams) => {
   const res = await client.get<{ results: Place[]}>('/search', {
     params: {
       ...params,
-      fields: 'fsq_id,name,geocodes,location,photos',
+      fields: 'fsq_id,name,geocodes,location',
     },
   })
-  return res.data
+  return res.data.results
 }

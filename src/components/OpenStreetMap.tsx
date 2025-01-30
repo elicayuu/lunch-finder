@@ -1,8 +1,13 @@
 import { FC, useRef, useEffect } from 'react'
 import L from "leaflet"
+import styled from '@emotion/styled'
 import "leaflet/dist/leaflet.css"
 
 const OSMUrl = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
+
+const Root = styled.div`
+  border-radius: 1.5rem;
+`
 
 interface OpenStreetMapProps {
   width: string | number;
@@ -10,6 +15,7 @@ interface OpenStreetMapProps {
   defaultLocation: L.LatLngExpression;
   zoom?: number;
   marker?: L.LatLngExpression;
+  className?: string;
 }
 
 export const OpenStreetMap:FC<OpenStreetMapProps> = ({
@@ -18,6 +24,7 @@ export const OpenStreetMap:FC<OpenStreetMapProps> = ({
   defaultLocation,
   zoom = 15,
   marker,
+  className,
 }) => {
   const domRef = useRef<HTMLDivElement | null>(null)
   const mapRef = useRef<L.Map | null>(null)
@@ -47,5 +54,5 @@ export const OpenStreetMap:FC<OpenStreetMapProps> = ({
     }
   }, [marker])
 
-  return <div ref={domRef} style={{ height: height, width: width }} />
+  return <Root className={className} ref={domRef} style={{ height: height, width: width }} />
 }
