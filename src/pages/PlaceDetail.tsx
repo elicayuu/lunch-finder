@@ -9,6 +9,7 @@ import {
   Grid,
   Link,
   Spinner,
+  Card,
 } from "@chakra-ui/react"
 import styled from '@emotion/styled'
 import { useParams } from 'react-router'
@@ -82,6 +83,17 @@ export const PlaceDetail: FC = () => {
               {placeDetail.menu}
             </Link>
           </Text>
+        )}
+        <Heading size="2xl" mt="20" mb="2">Reviews</Heading>
+        {placeDetail.tips.map(tip => {
+          return (
+            <Card.Root key={tip.created_at} mb="4">
+              <Card.Body>{tip.text}</Card.Body>
+            </Card.Root>
+          )
+        })}
+        {placeDetail.tips.length === 0 && (
+          <Text color="#aaa" pl="1px">No reviews yet</Text>
         )}
       </Info>
       <StyledOpenStreetMap

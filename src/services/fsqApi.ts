@@ -36,6 +36,10 @@ type PlaceDetail = Place & {
   }[];
   rating: number;
   tel: string;
+  tips: {
+    created_at: string;
+    text: string;
+  }[];
   website?: string;
   menu?: string;
 }
