@@ -1,10 +1,10 @@
 import { useMemo } from 'react'
-import { OpenStreetMap } from './components/OpenStreetMap'
 import { useQuery } from '@tanstack/react-query'
 import { LatLngExpression } from 'leaflet'
 
-import { searchPlaces, PLACE_CATEGORY } from './services/fsqApi'
-import { getRandomNumber } from './libs/utils'
+import { OpenStreetMap } from '@/components/OpenStreetMap'
+import { searchPlaces, PLACE_CATEGORY } from '@/services/fsqApi'
+import { getRandomNumber } from '@/libs/utils'
 
 function App() {
   const { data } = useQuery({
