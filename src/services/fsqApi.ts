@@ -28,6 +28,18 @@ type Place = {
   };
 }
 
+type PlaceDetail = Place & {
+  photos: {
+    id: string;
+    prefix: string;
+    suffix: string;
+  }[];
+  rating: number;
+  tel: string;
+  website?: string;
+  menu?: string;
+}
+
 export interface searchPlacesParams {
   query?: string;
   ll?: string;
@@ -44,4 +56,13 @@ export const searchPlaces = async (params: searchPlacesParams) => {
     },
   })
   return res.data.results
+}
+
+export const getPlace = async (id: string) => {
+  const res = await client.get<PlaceDetail>(`/${id}`, {
+    params: {
+      fields: 'fsq_id,name,geocodes,location,tel,photos,rating,website,tips,menu',
+    },
+  })
+  return res.data
 }
