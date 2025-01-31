@@ -26,14 +26,14 @@ type Place = {
   location: {
     formatted_address: string
   }
-}
-
-type PlaceDetail = Place & {
   photos: {
     id: string
     prefix: string
     suffix: string
   }[]
+}
+
+type PlaceDetail = Place & {
   rating: number
   tel: string
   tips: {
@@ -56,7 +56,7 @@ export const searchPlaces = async (params: searchPlacesParams) => {
   const res = await client.get<{ results: Place[] }>('/search', {
     params: {
       ...params,
-      fields: 'fsq_id,name,geocodes,location',
+      fields: 'fsq_id,name,geocodes,location,photos',
     },
   })
   return res.data.results

@@ -1,15 +1,17 @@
 import { FC } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { LatLngExpression } from 'leaflet'
-import { Button, Heading, Text, Box, Spinner } from '@chakra-ui/react'
+import { Button, Heading, Text, Box } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 import { NavLink } from 'react-router'
 
 import { OpenStreetMap } from '@/components/OpenStreetMap'
+import { Loading } from '@/components/ui/Loading'
+import { ErrorView } from '@/components/ui/ErrorView'
 import { searchPlaces, PLACE_CATEGORY } from '@/services/fsqApi'
 import { getRandomNumber } from '@/libs/utils'
 
-import { locations } from '@/constants/locations'
+import { COGENT_LAB_GEO } from '@/constants/locations'
 
 const Root = styled.div`
   display: flex;
@@ -21,7 +23,6 @@ const Info = styled.div`
 `
 
 export const Home: FC = () => {
-  const { COGENT_LAB_GEO } = locations
   const { data, error, isPending } = useQuery({
     queryKey: ['home'],
     queryFn: async () => {
@@ -34,9 +35,9 @@ export const Home: FC = () => {
     },
   })
 
-  if (error) return <div>🛠 Oops! Something went wrong</div>
+  if (error) return <ErrorView />
 
-  if (isPending || !data) return <Spinner size="sm" />
+  if (isPending || !data) return <Loading />
 
   const todayChoice = data[getRandomNumber(0, data.length - 1)]
   const geoLocation = todayChoice.geocodes.main

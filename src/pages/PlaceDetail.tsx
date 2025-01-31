@@ -8,16 +8,17 @@ import {
   AspectRatio,
   Grid,
   Link,
-  Spinner,
   Card,
 } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 import { useParams } from 'react-router'
 
 import { OpenStreetMap } from '@/components/OpenStreetMap'
+import { Loading } from '@/components/ui/Loading'
+import { ErrorView } from '@/components/ui/ErrorView'
 import { getPlace } from '@/services/fsqApi'
 import { getFsqPhotoUrl } from '@/libs/utils'
-import { locations } from '@/constants/locations'
+import { COGENT_LAB_GEO } from '@/constants/locations'
 
 const Root = styled.div`
   display: flex;
@@ -46,13 +47,12 @@ export const PlaceDetail: FC = () => {
     },
   })
 
-  if (error) return <div>🛠 Oops! Something went wrong</div>
+  if (error) return <ErrorView />
 
-  if (isPending || !placeDetail) return <Spinner size="sm" />
+  if (isPending || !placeDetail) return <Loading />
 
   const geoLocation = placeDetail.geocodes.main
   const marker: LatLngExpression = [geoLocation.latitude, geoLocation.longitude]
-  const { COGENT_LAB_GEO } = locations
 
   return (
     <Root>

@@ -1,7 +1,7 @@
 import { FC, FormEvent, ChangeEvent, useState } from 'react'
 import styled from '@emotion/styled'
-import { Input } from '@chakra-ui/react'
-import { useNavigate, createSearchParams } from 'react-router'
+import { Input, Box } from '@chakra-ui/react'
+import { useNavigate, createSearchParams, NavLink } from 'react-router'
 
 const Root = styled.header`
   display: flex;
@@ -12,7 +12,7 @@ const Root = styled.header`
 `
 
 const Logo = styled.h1`
-  flex-grow: 1;
+  display: inline;
   color: #444;
   font-size: 1.5em;
   font-weight: bold;
@@ -36,7 +36,11 @@ export const Header: FC = () => {
 
   return (
     <Root>
-      <Logo>LUNCH FINDER</Logo>
+      <Box flexGrow="1">
+        <NavLink to="/">
+          <Logo>LUNCH FINDER</Logo>
+        </NavLink>
+      </Box>
       <form onSubmit={handleSubmit}>
         <Input
           variant="subtle"
