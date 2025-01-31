@@ -1,15 +1,7 @@
 import { FC } from 'react'
 import { Outlet } from 'react-router'
 import styled from '@emotion/styled'
-
-const Header = styled.header`
-  margin: 0 0 30px;
-  padding: 20px 0;
-  border-bottom: 1px solid #eee;
-  color: #444;
-  font-size: 1.5em;
-  font-weight: bold;
-`
+import { Header } from '@/components/Header'
 
 const Main = styled.main`
   padding: 0 80px;
@@ -18,7 +10,7 @@ const Main = styled.main`
 export const RootLayout: FC = () => {
   return (
     <Main>
-      <Header>LUNCH FINDER</Header>
+      <Header />
       <Outlet />
     </Main>
   )
