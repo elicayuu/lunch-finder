@@ -15,7 +15,7 @@ const Main = styled.main`
   padding: 0 80px;
 `
 
-export const RootLayout:FC = () => {
+export const RootLayout: FC = () => {
   return (
     <Main>
       <Header>LUNCH FINDER</Header>

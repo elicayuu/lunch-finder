@@ -10,7 +10,7 @@ import {
   Link,
   Spinner,
   Card,
-} from "@chakra-ui/react"
+} from '@chakra-ui/react'
 import styled from '@emotion/styled'
 import { useParams } from 'react-router'
 
@@ -34,7 +34,11 @@ const StyledOpenStreetMap = styled(OpenStreetMap)`
 
 export const PlaceDetail: FC = () => {
   const { placeId } = useParams()
-  const { data: placeDetail, error, isPending } = useQuery({
+  const {
+    data: placeDetail,
+    error,
+    isPending,
+  } = useQuery({
     queryKey: ['placeDetail', placeId],
     queryFn: async () => {
       if (!placeId) return
@@ -44,9 +48,7 @@ export const PlaceDetail: FC = () => {
 
   if (error) return <div>🛠 Oops! Something went wrong</div>
 
-  if (isPending || !placeDetail) return (
-    <Spinner size="sm" />
-  )
+  if (isPending || !placeDetail) return <Spinner size="sm" />
 
   const geoLocation = placeDetail.geocodes.main
   const marker: LatLngExpression = [geoLocation.latitude, geoLocation.longitude]
@@ -55,37 +57,58 @@ export const PlaceDetail: FC = () => {
   return (
     <Root>
       <Info>
-        <Heading size="4xl" mb="2">{placeDetail.name}</Heading>
+        <Heading size="4xl" mb="2">
+          {placeDetail.name}
+        </Heading>
         <Text mb="2">⭐ {placeDetail.rating}</Text>
         <Grid templateColumns="repeat(3, 1fr)" gap="4" mb="4" maxW="630px">
-          {placeDetail.photos.slice(0, 3).map(photo => {
+          {placeDetail.photos.slice(0, 3).map((photo) => {
             return (
-              <AspectRatio key={photo.id} maxW="200px" ratio={1} backgroundColor="#eee">
-                <Image src={getFsqPhotoUrl(photo.prefix, photo.suffix, 200, 200)} rounded="lg" objectFit="cover" />
+              <AspectRatio
+                key={photo.id}
+                maxW="200px"
+                ratio={1}
+                backgroundColor="#eee"
+              >
+                <Image
+                  src={getFsqPhotoUrl(photo.prefix, photo.suffix, 200, 200)}
+                  rounded="lg"
+                  objectFit="cover"
+                />
               </AspectRatio>
             )
           })}
-        </Grid >
+        </Grid>
         <Text mb="2">Location: {placeDetail.location.formatted_address}</Text>
         <Text mb="2">Tel: {placeDetail.tel}</Text>
         {placeDetail.website && (
           <Text mb="2">
-            Website: {' '}
-            <Link href={placeDetail.website} variant="underline" colorPalette="teal">
+            Website:{' '}
+            <Link
+              href={placeDetail.website}
+              variant="underline"
+              colorPalette="teal"
+            >
               {placeDetail.website}
             </Link>
           </Text>
         )}
         {placeDetail.menu && (
           <Text mb="2">
-            Menu: {' '}
-            <Link href={placeDetail.menu} variant="underline" colorPalette="teal">
+            Menu:{' '}
+            <Link
+              href={placeDetail.menu}
+              variant="underline"
+              colorPalette="teal"
+            >
               {placeDetail.menu}
             </Link>
           </Text>
         )}
-        <Heading size="2xl" mt="20" mb="2">Reviews</Heading>
-        {placeDetail.tips.map(tip => {
+        <Heading size="2xl" mt="20" mb="2">
+          Reviews
+        </Heading>
+        {placeDetail.tips.map((tip) => {
           return (
             <Card.Root key={tip.created_at} mb="4">
               <Card.Body>{tip.text}</Card.Body>
@@ -93,7 +116,9 @@ export const PlaceDetail: FC = () => {
           )
         })}
         {placeDetail.tips.length === 0 && (
-          <Text color="#aaa" pl="1px">No reviews yet</Text>
+          <Text color="#aaa" pl="1px">
+            No reviews yet
+          </Text>
         )}
       </Info>
       <StyledOpenStreetMap

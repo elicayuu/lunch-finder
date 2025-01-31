@@ -1,24 +1,24 @@
 import { FC, useRef, useEffect } from 'react'
-import L from "leaflet"
+import L from 'leaflet'
 import styled from '@emotion/styled'
-import "leaflet/dist/leaflet.css"
+import 'leaflet/dist/leaflet.css'
 
-const OSMUrl = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
+const OSMUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 
 const Root = styled.div`
   border-radius: 1.5rem;
 `
 
 interface OpenStreetMapProps {
-  width: string | number;
-  height: string | number;
-  defaultLocation: L.LatLngExpression;
-  zoom?: number;
-  marker?: L.LatLngExpression;
-  className?: string;
+  width: string | number
+  height: string | number
+  defaultLocation: L.LatLngExpression
+  zoom?: number
+  marker?: L.LatLngExpression
+  className?: string
 }
 
-export const OpenStreetMap:FC<OpenStreetMapProps> = ({
+export const OpenStreetMap: FC<OpenStreetMapProps> = ({
   width,
   height,
   defaultLocation,
@@ -36,9 +36,9 @@ export const OpenStreetMap:FC<OpenStreetMapProps> = ({
     mapRef.current = L.map(domRef.current, {
       center: defaultLocation,
       zoom: zoom,
-    });
+    })
 
-    L.tileLayer(OSMUrl).addTo(mapRef.current);
+    L.tileLayer(OSMUrl).addTo(mapRef.current)
   }, [defaultLocation, zoom])
 
   // Change marker
@@ -54,5 +54,11 @@ export const OpenStreetMap:FC<OpenStreetMapProps> = ({
     }
   }, [marker])
 
-  return <Root className={className} ref={domRef} style={{ height: height, width: width }} />
+  return (
+    <Root
+      className={className}
+      ref={domRef}
+      style={{ height: height, width: width }}
+    />
+  )
 }

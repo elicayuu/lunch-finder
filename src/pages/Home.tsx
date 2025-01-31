@@ -1,13 +1,7 @@
 import { FC } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { LatLngExpression } from 'leaflet'
-import {
-  Button,
-  Heading,
-  Text,
-  Box,
-  Spinner,
-} from "@chakra-ui/react"
+import { Button, Heading, Text, Box, Spinner } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 import { NavLink } from 'react-router'
 
@@ -42,9 +36,7 @@ export const Home: FC = () => {
 
   if (error) return <div>🛠 Oops! Something went wrong</div>
 
-  if (isPending || !data) return (
-    <Spinner size="sm" />
-  )
+  if (isPending || !data) return <Spinner size="sm" />
 
   const todayChoice = data[getRandomNumber(0, data.length - 1)]
   const geoLocation = todayChoice.geocodes.main
@@ -54,8 +46,12 @@ export const Home: FC = () => {
     <Root>
       <Info>
         <Text mb="2">🔥 Today's Choice</Text>
-        <Heading size="2xl" mb="2">{todayChoice.name}</Heading>
-        <Text textStyle="sm" mb="2">{todayChoice.location.formatted_address}</Text>
+        <Heading size="2xl" mb="2">
+          {todayChoice.name}
+        </Heading>
+        <Text textStyle="sm" mb="2">
+          {todayChoice.location.formatted_address}
+        </Text>
         <Box mt="6">
           <NavLink to={`/places/${todayChoice.fsq_id}`}>
             <Button>Details</Button>
