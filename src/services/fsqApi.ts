@@ -35,7 +35,7 @@ export type Place = {
   }[]
 }
 
-type PlaceDetail = Place & {
+export type PlaceDetail = Place & {
   rating: number
   tel: string
   tips: {

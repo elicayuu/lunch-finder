@@ -35,6 +35,7 @@ const StyledOpenStreetMap = styled(OpenStreetMap)`
 
 export const PlaceDetail: FC = () => {
   const { placeId } = useParams()
+
   const {
     data: placeDetail,
     error,
@@ -71,6 +72,7 @@ export const PlaceDetail: FC = () => {
                 backgroundColor="#eee"
               >
                 <Image
+                  data-testid="restaurant-photo"
                   src={getFsqPhotoUrl(photo.prefix, photo.suffix, 200, 200)}
                   rounded="lg"
                   objectFit="cover"
@@ -79,7 +81,9 @@ export const PlaceDetail: FC = () => {
             )
           })}
         </Grid>
-        <Text mb="2">Location: {placeDetail.location.formatted_address}</Text>
+        <Text mb="2" data-testid="location">
+          Location: {placeDetail.location.formatted_address}
+        </Text>
         <Text mb="2">Tel: {placeDetail.tel}</Text>
         {placeDetail.website && (
           <Text mb="2">
@@ -110,7 +114,7 @@ export const PlaceDetail: FC = () => {
         </Heading>
         {placeDetail.tips.map((tip) => {
           return (
-            <Card.Root key={tip.created_at} mb="4">
+            <Card.Root key={tip.created_at} mb="4" data-testid="review-card">
               <Card.Body>{tip.text}</Card.Body>
             </Card.Root>
           )
