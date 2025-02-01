@@ -1,7 +1,9 @@
 import axios from 'axios'
 
+export const FSQ_API_URL = 'https://api.foursquare.com/v3/places'
+
 const client = axios.create({
-  baseURL: 'https://api.foursquare.com/v3/places/',
+  baseURL: FSQ_API_URL,
   headers: {
     accept: 'application/json',
     Authorization: import.meta.env.VITE_FSQ_API,
@@ -14,7 +16,7 @@ export const PLACE_CATEGORY = {
 
 type PlaceCategoryValues = (typeof PLACE_CATEGORY)[keyof typeof PLACE_CATEGORY]
 
-type Place = {
+export type Place = {
   fsq_id: string
   name: string
   geocodes: {
