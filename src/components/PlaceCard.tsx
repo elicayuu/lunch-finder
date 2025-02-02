@@ -16,7 +16,7 @@ export const PlaceCard: FC<PlaceCardProps> = ({
   address,
 }) => {
   return (
-    <Card.Root maxW="sm" overflow="hidden">
+    <Card.Root maxW="sm" overflow="hidden" data-testid="place-card">
       <AspectRatio width="100%" ratio={16 / 9} backgroundColor="#eee">
         <Image objectFit="cover" src={imageUrl} alt={name} />
       </AspectRatio>
