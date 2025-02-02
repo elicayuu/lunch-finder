@@ -1,5 +1,6 @@
+import { FC } from 'react'
 import { render, screen } from '@testing-library/react'
-import * as Router from 'react-router'
+import { Routes, Route } from 'react-router'
 
 import { TestWrapper } from '@/tests/TestWrapper'
 import { server, http, HttpResponse } from '@/tests/server'
@@ -7,14 +8,11 @@ import { genPlaceDetail } from '@/tests/fixtures/place'
 import { FSQ_API_URL } from '@/services/fsqApi'
 import { PlaceDetail } from './PlaceDetail'
 
-jest.mock('react-router', () => ({
-  ...jest.requireActual('react-router'),
-  useParams: jest.fn(),
-}))
-
-const PlaceDetailWithWrapper = () => (
-  <TestWrapper>
-    <PlaceDetail />
+const PlaceDetailWithWrapper: FC<{ placeId: string }> = ({ placeId }) => (
+  <TestWrapper initialEntries={[`/places/${placeId}`]}>
+    <Routes>
+      <Route path="/places/:placeId" element={<PlaceDetail />} />
+    </Routes>
   </TestWrapper>
 )
 
@@ -26,17 +24,13 @@ describe('<PlaceDetail />', () => {
   afterAll(() => server.close())
 
   test('show the restaurant detail info', async () => {
-    jest
-      .spyOn(Router, 'useParams')
-      .mockReturnValue({ placeId: mockPlaceDetail.fsq_id })
-
     server.use(
       http.get(`${FSQ_API_URL}/${mockPlaceDetail.fsq_id}`, () =>
         HttpResponse.json(mockPlaceDetail),
       ),
     )
 
-    render(<PlaceDetailWithWrapper />)
+    render(<PlaceDetailWithWrapper placeId={mockPlaceDetail.fsq_id} />)
 
     expect(await screen.findByText(mockPlaceDetail.name)).toBeInTheDocument()
     expect(await screen.findAllByTestId('restaurant-photo')).toHaveLength(3)
@@ -56,7 +50,7 @@ describe('<PlaceDetail />', () => {
       ),
     )
 
-    render(<PlaceDetailWithWrapper />)
+    render(<PlaceDetailWithWrapper placeId={mockPlaceDetail.fsq_id} />)
 
     expect(await screen.findByText(/oops/i)).toBeInTheDocument()
   })
