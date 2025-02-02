@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { LatLngExpression } from 'leaflet'
+import { LatLngTuple } from 'leaflet'
 import {
   Heading,
   Text,
@@ -53,7 +53,7 @@ export const PlaceDetail: FC = () => {
   if (isPending || !placeDetail) return <Loading />
 
   const geoLocation = placeDetail.geocodes.main
-  const marker: LatLngExpression = [geoLocation.latitude, geoLocation.longitude]
+  const marker: LatLngTuple = [geoLocation.latitude, geoLocation.longitude]
 
   return (
     <Root>

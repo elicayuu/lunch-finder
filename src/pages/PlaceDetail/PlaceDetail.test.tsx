@@ -43,6 +43,10 @@ describe('<PlaceDetail />', () => {
     expect(await screen.findAllByTestId('review-card')).toHaveLength(
       mockPlaceDetail.tips.length,
     )
+    expect(await screen.findByRole('application')).toHaveAttribute(
+      'data-marker',
+      `${mockPlaceDetail.geocodes.main.latitude},${mockPlaceDetail.geocodes.main.longitude}`,
+    )
   })
 
   test('show error if the request fails', async () => {

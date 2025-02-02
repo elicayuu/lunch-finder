@@ -12,9 +12,9 @@ const Root = styled.div`
 interface OpenStreetMapProps {
   width: string | number
   height: string | number
-  defaultLocation: L.LatLngExpression
+  defaultLocation: L.LatLngTuple
   zoom?: number
-  marker?: L.LatLngExpression
+  marker?: L.LatLngTuple
   className?: string
 }
 
@@ -56,6 +56,8 @@ export const OpenStreetMap: FC<OpenStreetMapProps> = ({
 
   return (
     <Root
+      role="application"
+      data-marker={marker?.join(',')}
       className={className}
       ref={domRef}
       style={{ height: height, width: width }}

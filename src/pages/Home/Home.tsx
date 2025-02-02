@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { LatLngExpression } from 'leaflet'
+import { LatLngTuple } from 'leaflet'
 import { Button, Heading, Text, Box } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 import { NavLink } from 'react-router'
@@ -41,7 +41,7 @@ export const Home: FC = () => {
 
   const todayChoice = data[getRandomNumber(0, data.length - 1)]
   const geoLocation = todayChoice.geocodes.main
-  const marker: LatLngExpression = [geoLocation.latitude, geoLocation.longitude]
+  const marker: LatLngTuple = [geoLocation.latitude, geoLocation.longitude]
 
   return (
     <Root>

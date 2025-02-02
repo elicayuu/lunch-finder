@@ -32,9 +32,13 @@ describe('<Home />', () => {
     expect(
       await screen.findByText(mockPlace.location.formatted_address),
     ).toBeInTheDocument()
-    expect(await screen.getByText(/details/i).closest('a')).toHaveProperty(
+    expect((await screen.findByText(/details/i)).closest('a')).toHaveAttribute(
       'href',
-      `http://localhost/places/${mockPlace.fsq_id}`,
+      `/places/${mockPlace.fsq_id}`,
+    )
+    expect(await screen.findByRole('application')).toHaveAttribute(
+      'data-marker',
+      `${mockPlace.geocodes.main.latitude},${mockPlace.geocodes.main.longitude}`,
     )
   })
 
