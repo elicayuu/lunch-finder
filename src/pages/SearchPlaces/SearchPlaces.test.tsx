@@ -40,6 +40,18 @@ describe('<SearchPlaces />', () => {
     expect(resultTitles).toEqual(places.map((p) => p.name))
   })
 
+  test('show EmptyView if no results', async () => {
+    server.use(
+      http.get(`${FSQ_API_URL}/search`, () =>
+        HttpResponse.json({ results: [] }),
+      ),
+    )
+
+    render(<SearchPlacesWithWrapper />)
+
+    expect(await screen.findByText(/No results found/i)).toBeInTheDocument()
+  })
+
   test('show error if the request fails', async () => {
     server.use(http.get(`${FSQ_API_URL}/search`, () => HttpResponse.error()))
 

@@ -9,6 +9,7 @@ import { ErrorView } from '@/components/ui/ErrorView'
 import { searchPlaces, PLACE_CATEGORY } from '@/services/fsqApi'
 import { COGENT_LAB_GEO } from '@/constants/locations'
 import { getFsqPhotoUrl } from '@/libs/utils'
+import { EmptyView } from './EmptyView'
 
 export const SearchPlaces: FC = () => {
   const [searchParams] = useSearchParams()
@@ -30,6 +31,8 @@ export const SearchPlaces: FC = () => {
   if (error) return <ErrorView />
 
   if (isPending || !data) return <Loading />
+
+  if (data.length === 0) return <EmptyView />
 
   return (
     <>
